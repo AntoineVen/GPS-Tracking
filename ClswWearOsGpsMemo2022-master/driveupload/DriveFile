@@ -1,0 +1,7 @@
+{
+"project_name":"GPSMemo",
+"build_type":"debug",
+"build_path":"/Users/Antoine/Downloads/ClswWearOsGpsMemo2022-master/app/build/outputs/apk/debug/app-debug.apk",
+"client_secret_path":"client_secret.json",
+"create_build_for_me":true
+}
