@@ -2,6 +2,8 @@ package com.antoinev.tmdb;
 
 import android.util.Log;
 
+import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -26,7 +28,7 @@ public class ApiClient {
         try {
             retrofit = new Retrofit.Builder()
                     .baseUrl(TMDBAPI_BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(TikXmlConverterFactory.create())
                     .client(client)
                     .build();
         } catch (IllegalArgumentException e) {
