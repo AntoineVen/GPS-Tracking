@@ -12,6 +12,10 @@ import java.util.Map;
 @Xml
 public class Monument {
     @Attribute
+    public String country;
+    @Attribute
+    public String id;
+    @Attribute
     public String name;
     @Attribute
     public String municipality;
@@ -19,8 +23,6 @@ public class Monument {
     public Double dist;
     @Attribute
     public Double lon;
-    @Attribute
-    public String id;
     @Attribute
     public Double lat;
 
