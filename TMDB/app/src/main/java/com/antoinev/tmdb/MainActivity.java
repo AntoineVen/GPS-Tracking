@@ -59,16 +59,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void refreshPopularPersons() {
         if (tmdbApi != null) {
-            Call<Root> call = tmdbApi.getMonuments();
+            Call<Monuments> call = tmdbApi.getMonuments();
             binding.progressWheel.setVisibility(View.VISIBLE);
-            call.enqueue(new Callback<Root>() {
+            call.enqueue(new Callback<Monuments>() {
                 @Override
-                public void onResponse(@NonNull Call<Root> call, @NonNull Response<Root> response) {
+                public void onResponse(@NonNull Call<Monuments> call, @NonNull Response<Monuments> response) {
                     results.clear();
                     if (response.code() == 200) {
-                        Root monumentResponse = response.body();
-                        if (monumentResponse != null && monumentResponse.getMonuments() != null) {
-                            results.addAll(monumentResponse.getMonuments().getMonument());
+                        Monuments monumentResponse = response.body();
+                        if (monumentResponse != null && monumentResponse.getMonument() != null) {
+                            results.addAll(monumentResponse.getMonument());
                             Log.d(LOG_TAG, "Number of popular person found=" + results.size());
                         }
                     } else {
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(@NonNull Call<Root> call, @NonNull Throwable t) {
+                public void onFailure(@NonNull Call<Monuments> call, @NonNull Throwable t) {
                     Log.e(LOG_TAG, "Call to 'getPersonPopular' failed");
                     Log.e(LOG_TAG, t.toString());
                     mCurrentPage = 1;

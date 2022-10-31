@@ -15,6 +15,7 @@ import java.util.Map;
 public class Monuments {
     @Element
     public List<Monument> monument;
+
     public List<Monument> getMonument() {
         return monument;
     }
