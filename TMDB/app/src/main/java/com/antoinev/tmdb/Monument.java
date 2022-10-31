@@ -1,17 +1,29 @@
 package com.antoinev.tmdb;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.tickaroo.tikxml.annotation.Attribute;
+import com.tickaroo.tikxml.annotation.Xml;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Xml
 public class Monument {
-    private String name;
-    private String municipality;
-    private Double dist;
-    private Double lon;
-    private String id;
-    private Double lat;
+    @Attribute
+    public String name;
+    @Attribute
+    public String municipality;
+    @Attribute
+    public Double dist;
+    @Attribute
+    public Double lon;
+    @Attribute
+    public String id;
+    @Attribute
+    public Double lat;
+
     public String getName() {
         return name;
     }

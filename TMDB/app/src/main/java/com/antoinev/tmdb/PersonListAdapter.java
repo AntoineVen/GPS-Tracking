@@ -15,9 +15,9 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.PersonViewHolder> {
-    private final List<PersonData> persons;
+    private final List<Monument> persons;
 
-    public PersonListAdapter(List<PersonData> results) {
+    public PersonListAdapter(List<Monument> results) {
         this.persons = results;
 
     }
@@ -33,18 +33,18 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Pe
 
     @Override
     public void onBindViewHolder(@NonNull PersonListAdapter.PersonViewHolder holder, int position) {
-        PersonData curItem = persons.get(position);
+        Monument curItem = persons.get(position);
         String name = persons.get(position).getName();
         if (name != null) holder.binding.personName.setText(persons.get(position).getName());
 
-        double popularity = persons.get(position).getPopularity();
-        holder.binding.popularity.setText(String.valueOf(popularity));
+        //double popularity = persons.get(position).getPopularity();
+        //holder.binding.popularity.setText(String.valueOf(popularity));
 
-        Picasso.get()
+        /*Picasso.get()
                 .load(ApiClient.IMAGE_BASE_URL + curItem.getProfilePath())
                 .placeholder(android.R.drawable.sym_def_app_icon)
                 .error(android.R.drawable.ic_menu_help)
-                .into(holder.binding.imageView2);
+                .into(holder.binding.imageView2);*/
     }
 
     @Override

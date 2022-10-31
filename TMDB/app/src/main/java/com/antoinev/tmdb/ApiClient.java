@@ -12,8 +12,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
     private static final String LOG_TAG = ApiClient.class.getSimpleName();
 
-    public static String TMDBAPI_BASE_URL = "https://api.themoviedb.org/3/";
-    public static String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w45";
+    //public static String TMDBAPI_BASE_URL = "https://api.themoviedb.org/3/";
+    //public static String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w45";
+
+    public static String MONUMENT_API_BASE_URL = "https://heritage.toolforge.org/api/";
+    //public static String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w45";
 
     private static Retrofit retrofit = null;
 
@@ -27,7 +30,7 @@ public class ApiClient {
                 .build();
         try {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(TMDBAPI_BASE_URL)
+                    .baseUrl(MONUMENT_API_BASE_URL)
                     .addConverterFactory(TikXmlConverterFactory.create())
                     .client(client)
                     .build();

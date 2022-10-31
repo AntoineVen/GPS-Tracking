@@ -1,7 +1,5 @@
 package com.antoinev.tmdb;
 
-import static androidx.core.content.PackageManagerCompat.LOG_TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,7 +12,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.antoinev.tmdb.databinding.ActivityMainBinding;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +19,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     public TmdbApi tmdbApi = null;
     int mCurrentPage = 1;
-    List<PersonData> results = new ArrayList<>();
+    List<Monument> results = new ArrayList<>();
     PersonListAdapter mPersonListAdapter = null;
 
     private final Context mContext = this;
@@ -63,16 +59,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void refreshPopularPersons() {
         if (tmdbApi != null) {
-            Call<PersonPopularResponse> call = tmdbApi.getPersonPopular(TmdbApi.KEY, String.valueOf(mCurrentPage));
+            Call<Root> call = tmdbApi.getMonuments();
             binding.progressWheel.setVisibility(View.VISIBLE);
-            call.enqueue(new Callback<PersonPopularResponse>() {
+            call.enqueue(new Callback<Root>() {
                 @Override
-                public void onResponse(@NonNull Call<PersonPopularResponse> call, @NonNull Response<PersonPopularResponse> response) {
+                public void onResponse(@NonNull Call<Root> call, @NonNull Response<Root> response) {
                     results.clear();
                     if (response.code() == 200) {
-                        PersonPopularResponse personResponse = response.body();
-                        if (personResponse != null && personResponse.getResults() != null) {
-                            results.addAll(personResponse.getResults());
+                        Root monumentResponse = response.body();
+                        if (monumentResponse != null && monumentResponse.getMonuments() != null) {
+                            results.addAll(monumentResponse.getMonuments().getMonument());
                             Log.d(LOG_TAG, "Number of popular person found=" + results.size());
                         }
                     } else {
@@ -90,8 +86,9 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(@NonNull Call<PersonPopularResponse> call, @NonNull Throwable t) {
+                public void onFailure(@NonNull Call<Root> call, @NonNull Throwable t) {
                     Log.e(LOG_TAG, "Call to 'getPersonPopular' failed");
+                    Log.e(LOG_TAG, t.toString());
                     mCurrentPage = 1;
                     setPageNumber();
                     binding.progressWheel.setVisibility(View.GONE);
