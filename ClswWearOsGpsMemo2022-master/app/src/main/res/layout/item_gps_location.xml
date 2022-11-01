@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/time_stamp_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_orange_dark"
+
+            android:layout_centerHorizontal="true"
+            tools:text="Timestamp" />
+
+        <TextView
+            android:id="@+id/latitude_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/longitude_tv"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/holo_blue_light"
+            tools:text="Latitude" />
+
+        <TextView
+            android:id="@+id/longitude_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/monument"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/holo_blue_light"
+            tools:text="Longitude" />
+
+        <ImageView
+            android:id="@+id/monument"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_below="@id/time_stamp_tv"
+            android:layout_centerInParent="true"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+    </RelativeLayout>
+</androidx.wear.widget.BoxInsetLayout>

@@ -1,5 +1,11 @@
 package com.example.clswwearosgpsmemo2022;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -21,7 +27,6 @@ import androidx.wear.ambient.AmbientModeSupport.AmbientCallback;
 import androidx.wear.widget.WearableLinearLayoutManager;
 
 import com.example.clswwearosgpsmemo2022.databinding.ActivityMainBinding;
-import com.example.clswwearosgpsmemo2022.databinding.ItemMonumentBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -45,11 +50,12 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
     public static final long LOCATION_UPDATE_INTERVAL = 3000; // duration in milliseconds
     private static final int MAX_LOCATION_RECORDED = 10;
 
+    ImageView monument;
+    URL urlMonument = null;
+
     // Recycler view data model
     ArrayList<Location> locations = new ArrayList<>();
-    MonumentAdapter adapter;
-    ImageView monumentImage;
-    URL urlImageMonument;
+    GpsLocationAdapter adapter;
 
     // keep view binding
     private ActivityMainBinding binding;
@@ -81,14 +87,22 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
         super.onCreate(savedInstanceState);
         Log.d(LOG_TAG, "onCreate()");
 
+        try {
+            urlMonument = new URL("http://www.google.fr/intl/en_com/images/srpr/logo1w.png");
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        setContentView(R.layout.item_gps_location);
+        monument = (ImageView) findViewById(R.id.monument);
+        downloadImage(urlMonument);
+
+
+
         // Init view binding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        /*
-         * Ajout de l'image du monument
-         */
-        monumentImage = (ImageView) findViewById(R.id.imageView);
         /*
          * Attach an ambient mode controller, which will be used by
          * the activity to determine if the current mode is ambient.
@@ -113,7 +127,7 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
             // Wearable recycler view init
             binding.gpsLocationWrv.setEdgeItemsCenteringEnabled(true);
             binding.gpsLocationWrv.setLayoutManager(new WearableLinearLayoutManager(this));
-            adapter = new MonumentAdapter(locations, this);
+            adapter = new GpsLocationAdapter(locations, this);
             binding.gpsLocationWrv.setAdapter(adapter);
 
             // Location init
@@ -241,18 +255,17 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
         }
     }
 
-    /*public Bitmap getMonumentImage(String monumentImageURL) {
+    private void downloadImage(URL urlMonument) {
         Bitmap bitmap = null;
         try {
-            HttpURLConnection connection = (HttpURLConnection) monumentImageURL.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) urlMonument.openConnection();
             InputStream inputStream = connection.getInputStream();
             bitmap = BitmapFactory.decodeStream(inputStream);
-            welcome.setImageBitmap(bitmap);
+            monument.setImageBitmap(bitmap);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-    }*/
+    }
 }
