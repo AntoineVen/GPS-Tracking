@@ -20,6 +20,7 @@ public class GpsLocationAdapter extends WearableRecyclerView.Adapter<GpsLocation
 
     // Data model
     ArrayList<Location> locations;
+    MonumentImages monumentImage;
     Context context;
 
     public GpsLocationAdapter(ArrayList<Location> locations, Context context) {
@@ -39,12 +40,13 @@ public class GpsLocationAdapter extends WearableRecyclerView.Adapter<GpsLocation
     @Override
     public void onBindViewHolder(@NonNull GpsLocationViewHolder holder, int position) {
         Location curItem = locations.get(position);
+        MonumentImages currentMonumentImage = monumentImage;
         Date date = new Date(curItem.getTime());
         holder.binding.timeStampTv.setText(context.getString(R.string.timestamp_format, DateFormat.format(DMYHMS_DATE_FORMAT, date).toString()));
         holder.binding.latitudeTv.setText(context.getString(R.string.latitude_format, curItem.getLatitude()));
         holder.binding.longitudeTv.setText(context.getString(R.string.longitude_format, curItem.getLongitude()));
         Picasso.with(this.context)
-                .load("https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Tour_eiffel_-_vue_du_trocad%C3%A9ro.jpg/1200px-Tour_eiffel_-_vue_du_trocad%C3%A9ro.jpg")//ApiClient.IMAGE_BASE_URL + curItem.getProfilePath())
+                .load(ApiImageClient.MONUMENT_IMAGE_API_BASE_URL + currentMonumentImage.getUrl())
                 .placeholder(android.R.drawable.sym_def_app_icon)
                 .error(android.R.drawable.sym_def_app_icon)
                 .into(holder.binding.monument);

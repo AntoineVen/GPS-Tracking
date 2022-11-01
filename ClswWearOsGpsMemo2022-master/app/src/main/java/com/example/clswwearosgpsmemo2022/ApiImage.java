@@ -3,7 +3,7 @@ package com.example.clswwearosgpsmemo2022;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-public interface MediaWikiApi {
+public interface ApiImage {
 
     String KEY="";
 

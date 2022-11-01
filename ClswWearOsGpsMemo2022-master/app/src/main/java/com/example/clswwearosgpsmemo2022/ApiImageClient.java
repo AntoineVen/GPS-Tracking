@@ -2,17 +2,15 @@ package com.example.clswwearosgpsmemo2022;
 
 import android.util.Log;
 
-//import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiImageClient {
     private static final String LOG_TAG  = ApiImageClient.class.getSimpleName();
-    private static String MONUMENT_IMAGE_API_BASE_URL = "https://en.wikipedia.org/w/api/";
+    public static String MONUMENT_IMAGE_API_BASE_URL = "https://en.wikipedia.org/w/api/";
     private static Retrofit retrofit = null;
 
     static Retrofit get() {
