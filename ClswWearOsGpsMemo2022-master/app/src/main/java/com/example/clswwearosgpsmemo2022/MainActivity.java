@@ -2,12 +2,15 @@ package com.example.clswwearosgpsmemo2022;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -27,6 +30,11 @@ import com.google.android.gms.location.LocationServices;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 // inherit from FragmentActivity for Ambient mode support
 public class MainActivity extends FragmentActivity implements AmbientModeSupport.AmbientCallbackProvider {
@@ -36,12 +44,16 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
     public static final long LOCATION_UPDATE_INTERVAL = 3000; // duration in milliseconds
     private static final int MAX_LOCATION_RECORDED = 10;
 
-    // Recycler view data model
-    ArrayList<Location> locations = new ArrayList<>();
-    GpsLocationAdapter adapter;
+    public TmdbApi tmdbApi = null;
+    List<Monument> monumentsList = new ArrayList<>();
+    MonumentsDisplayAdapter monumentsListAdapter = null;
 
-    // keep view binding
+    private final Context mContext = this;
     private ActivityMainBinding binding;
+
+    // Recycler view data model
+    Location locations = null;
+    MonumentsDisplayAdapter adapter;
 
     // Location
     private FusedLocationProviderClient fusedLocationClient;
@@ -50,17 +62,16 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
     private final LocationCallback locationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(@NonNull LocationResult locationResult) {
-            Log.d(LOG_TAG, "onLocationResult(" + locationResult.getLocations().size() + ")");
+            Log.d(LOG_TAG, "onLocationResult(" + locationResult.getLastLocation() + ")");
             if (locationResult.getLocations().size() > 0) {
-                for (Location location : locationResult.getLocations()) {
+                /*for (Location location : locationResult.getLocations()) {
                     int length = locations.size();
                     if (length >= MAX_LOCATION_RECORDED) {
                         locations.remove(length - 1); // remove last element
                     }
                     locations.add(0, location); // insert new element
-                }
-                //adapter.notifyItemRangeChanged(0, locations.size());
-                adapter.notifyDataSetChanged();
+                }*/
+                updateNearbyMonuments(locationResult.getLastLocation());
             }
         }
     };
@@ -85,21 +96,25 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
          */
         ambientController.setAutoResumeEnabled(true);
 
+        if(ApiClient.get() != null){
+            tmdbApi = ApiClient.get().create(TmdbApi.class);
+        } else finish();
+
         // Ensure watch has an embedded physical GPS for the application to work
         if (hasGps()) {
             Log.d(LOG_TAG, "Found standalone GPS hardware");
             // dummy init for test purpose only
-            locations.add(makeLoc(0.0d, 0.0));
-            /* locations.add(makeLoc(42.12812921d, 6.22987212d));
-            locations.add(makeLoc(43.24648328d, 7.53783836d));
-            locations.add(makeLoc(44.39800122d, 8.40192765d));
-            locations.add(makeLoc(45.83232627d, 9.12763238d));*/
+            //locations.add(makeLoc(0.0d, 0.0));
 
             // Wearable recycler view init
-            binding.gpsLocationWrv.setEdgeItemsCenteringEnabled(true);
-            binding.gpsLocationWrv.setLayoutManager(new WearableLinearLayoutManager(this));
-            adapter = new GpsLocationAdapter(locations, this);
-            binding.gpsLocationWrv.setAdapter(adapter);
+            binding.monumentsWrv.setEdgeItemsCenteringEnabled(true);
+            binding.monumentsWrv.setLayoutManager(new WearableLinearLayoutManager(this));
+
+            /* REQUETE POUR AVOIR LA LISTE DES MONUMENTS */
+            // -> adapter = new MonumentsDisplayAdapter(monumentsList);
+            updateNearbyMonuments(makeLoc(0.0d, 0.0));
+            adapter = new MonumentsDisplayAdapter(monumentsList);
+            binding.monumentsWrv.setAdapter(adapter);
 
             // Location init
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -123,6 +138,43 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
         } else {
             Log.e(LOG_TAG, "This hardware doesn't have GPS.");
             noGpsExitConfirmation();
+        }
+    }
+
+    private void updateNearbyMonuments(Location location){
+        if (tmdbApi != null) {
+            Call<Monuments> call = tmdbApi.getMonuments();
+            call.enqueue(new Callback<Monuments>() {
+                @Override
+                public void onResponse(@NonNull Call<Monuments> call, @NonNull Response<Monuments> response) {
+                    monumentsList.clear();
+                    if (response.code() == 200) {
+                        Monuments monumentResponse = response.body();
+                        if (monumentResponse != null && monumentResponse.getMonument() != null) {
+                            monumentsList.addAll(monumentResponse.getMonument());
+                            Log.d(LOG_TAG, "Number of popular person found=" + monumentsList.size());
+                        }
+                    } else {
+                        Log.e(LOG_TAG, "HTTP error " + response.code());
+                        monumentsList.clear();
+                        Toast toast = Toast.makeText(mContext, "error", Toast.LENGTH_LONG);
+                        toast.show();
+
+                    }
+
+                    monumentsListAdapter.notifyItemRangeChanged(0, monumentsList.size());
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Monuments> call, @NonNull Throwable t) {
+                    Log.e(LOG_TAG, "Call to 'getPersonPopular' failed");
+                    Log.e(LOG_TAG, t.toString());
+
+                }
+            });
+
+        } else {
+            Log.e(LOG_TAG, "Api not initialized");
         }
     }
 
