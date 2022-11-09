@@ -28,7 +28,6 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
         Monument curItem = monuments.get(position);
         String name = monuments.get(position).getName();
         if (name != null) holder.binding.monumentName.setText(monuments.get(position).getName());
-
         //double popularity = persons.get(position).getPopularity();
         //holder.binding.popularity.setText(String.valueOf(popularity));
 

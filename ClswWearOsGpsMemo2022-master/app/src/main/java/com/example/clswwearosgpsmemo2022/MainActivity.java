@@ -51,10 +51,6 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
     private final Context mContext = this;
     private ActivityMainBinding binding;
 
-    // Recycler view data model
-    Location locations = null;
-    MonumentsDisplayAdapter adapter;
-
     // Location
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -96,6 +92,8 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
          */
         ambientController.setAutoResumeEnabled(true);
 
+        monumentsList.add(new Monument());
+
         if(ApiClient.get() != null){
             tmdbApi = ApiClient.get().create(TmdbApi.class);
         } else finish();
@@ -113,8 +111,8 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
             /* REQUETE POUR AVOIR LA LISTE DES MONUMENTS */
             // -> adapter = new MonumentsDisplayAdapter(monumentsList);
             updateNearbyMonuments(makeLoc(0.0d, 0.0));
-            adapter = new MonumentsDisplayAdapter(monumentsList);
-            binding.monumentsWrv.setAdapter(adapter);
+            monumentsListAdapter = new MonumentsDisplayAdapter(monumentsList);
+            binding.monumentsWrv.setAdapter(monumentsListAdapter);
 
             // Location init
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
