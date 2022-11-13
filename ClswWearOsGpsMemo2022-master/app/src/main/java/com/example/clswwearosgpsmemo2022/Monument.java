@@ -19,6 +19,10 @@ public class Monument {
     public Double lon;
     @Attribute
     public Double lat;
+    @Attribute
+    public String image;
+
+    public String imageURL = null;
 
     public String getName() {
         return name;
@@ -55,5 +59,18 @@ public class Monument {
     }
     public void setLat(Double lat) {
         this.lat = lat;
+    }
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImageURL(){
+        if(imageURL == null){
+            imageURL = "https://upload.wikimedia.org/wikipedia/commons/1/12/Fontaine_de_l%27Hotel_de_Ville_%28Aix_en_Provence%29_1.jpg";
+        }
+        return imageURL;
     }
 }

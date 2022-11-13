@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.wear.widget.WearableRecyclerView;
 import com.example.clswwearosgpsmemo2022.databinding.MonumentItemBinding;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<MonumentsDisplayAdapter.MonumentViewHolder> {
@@ -36,11 +38,13 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
         Double dist = curItem.getDist();
         if (dist != null) holder.binding.monumentDistance.setText(String.format("%.0f", dist) + "m");
 
-        /*Picasso.get()
-                .load(ApiClient.IMAGE_BASE_URL + curItem.getProfilePath())
+        Picasso.get()
+                .load(curItem.getImageURL())
+                .fit()
+                .centerCrop()
                 .placeholder(android.R.drawable.sym_def_app_icon)
                 .error(android.R.drawable.ic_menu_help)
-                .into(holder.binding.imageView2);*/
+                .into(holder.binding.monumentImage);
     }
 
     @Override

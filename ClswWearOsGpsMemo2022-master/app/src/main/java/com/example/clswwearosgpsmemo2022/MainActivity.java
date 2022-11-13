@@ -9,7 +9,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,7 +43,7 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
     public static final long LOCATION_UPDATE_INTERVAL = 60000; // duration in milliseconds
     private static final int MAX_LOCATION_RECORDED = 10;
 
-    public TmdbApi tmdbApi = null;
+    public WikiLovesMonumentsAPI tmdbApi = null;
     List<Monument> monumentsList = new ArrayList<>();
     MonumentsDisplayAdapter monumentsListAdapter = null;
 
@@ -95,7 +94,7 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
         monumentsList.add(new Monument());
 
         if(ApiClient.get() != null){
-            tmdbApi = ApiClient.get().create(TmdbApi.class);
+            tmdbApi = ApiClient.get().create(WikiLovesMonumentsAPI.class);
         } else finish();
 
         // Ensure watch has an embedded physical GPS for the application to work
