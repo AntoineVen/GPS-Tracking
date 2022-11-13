@@ -22,8 +22,6 @@ public class Monument {
     @Attribute
     public String image;
 
-    public String imageURL = null;
-
     public String getName() {
         return name;
     }
@@ -68,9 +66,6 @@ public class Monument {
     }
 
     public String getImageURL(){
-        if(imageURL == null){
-            imageURL = "https://upload.wikimedia.org/wikipedia/commons/1/12/Fontaine_de_l%27Hotel_de_Ville_%28Aix_en_Provence%29_1.jpg";
-        }
-        return imageURL;
+        return "https://commons.wikimedia.org/wiki/Special:FilePath/" + image + "?width=200";
     }
 }
