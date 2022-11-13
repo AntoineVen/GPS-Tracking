@@ -35,7 +35,7 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
             name=name.replace("[", "");
             name=name.replace("]", "");
             name = name.split("\\u007C")[0];
-            name = name.substring(0, 80);
+            if(name.length()>80) name = name.substring(0, 80);
             holder.binding.monumentName.setText(name);
         }
         Double dist = curItem.getDist();
