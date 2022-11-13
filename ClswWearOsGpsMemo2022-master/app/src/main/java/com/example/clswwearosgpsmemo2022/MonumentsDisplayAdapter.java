@@ -26,10 +26,15 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
     @Override
     public void onBindViewHolder(@NonNull MonumentsDisplayAdapter.MonumentViewHolder holder, int position) {
         Monument curItem = monuments.get(position);
-        String name = monuments.get(position).getName();
-        if (name != null) holder.binding.monumentName.setText(monuments.get(position).getName());
-        //double popularity = persons.get(position).getPopularity();
-        //holder.binding.popularity.setText(String.valueOf(popularity));
+        String name = curItem.getName();
+        if (name != null) {
+            name=name.replace("[", "");
+            name=name.replace("]", "");
+            name = name.split("\\u007C")[0];
+            holder.binding.monumentName.setText(name);
+        }
+        Double dist = curItem.getDist();
+        if (dist != null) holder.binding.monumentDistance.setText(String.format("%.0f", dist) + "m");
 
         /*Picasso.get()
                 .load(ApiClient.IMAGE_BASE_URL + curItem.getProfilePath())
