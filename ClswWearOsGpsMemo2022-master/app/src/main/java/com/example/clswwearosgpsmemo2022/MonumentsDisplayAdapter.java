@@ -4,6 +4,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.wear.widget.WearableRecyclerView;
+
+import com.example.clswwearosgpsmemo2022.WikiLovesMonument.Monument;
 import com.example.clswwearosgpsmemo2022.databinding.MonumentItemBinding;
 import com.squareup.picasso.Picasso;
 

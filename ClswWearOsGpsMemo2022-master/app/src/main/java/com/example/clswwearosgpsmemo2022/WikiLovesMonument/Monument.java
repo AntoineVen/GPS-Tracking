@@ -1,4 +1,4 @@
-package com.example.clswwearosgpsmemo2022;
+package com.example.clswwearosgpsmemo2022.WikiLovesMonument;
 
 import com.tickaroo.tikxml.annotation.Attribute;
 import com.tickaroo.tikxml.annotation.Xml;

@@ -19,6 +19,10 @@ import androidx.wear.ambient.AmbientModeSupport;
 import androidx.wear.ambient.AmbientModeSupport.AmbientCallback;
 import androidx.wear.widget.WearableLinearLayoutManager;
 
+import com.example.clswwearosgpsmemo2022.WikiLovesMonument.ApiClientMonuments;
+import com.example.clswwearosgpsmemo2022.WikiLovesMonument.Monument;
+import com.example.clswwearosgpsmemo2022.WikiLovesMonument.Monuments;
+import com.example.clswwearosgpsmemo2022.WikiLovesMonument.WikiLovesMonumentsAPI;
 import com.example.clswwearosgpsmemo2022.databinding.ActivityMainBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -93,8 +97,8 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
 
         monumentsList.add(new Monument());
 
-        if(ApiClient.get() != null){
-            tmdbApi = ApiClient.get().create(WikiLovesMonumentsAPI.class);
+        if(ApiClientMonuments.get() != null){
+            tmdbApi = ApiClientMonuments.get().create(WikiLovesMonumentsAPI.class);
         } else finish();
 
         // Ensure watch has an embedded physical GPS for the application to work

@@ -1,4 +1,4 @@
-package com.example.clswwearosgpsmemo2022;
+package com.example.clswwearosgpsmemo2022.WikiLovesMonument;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

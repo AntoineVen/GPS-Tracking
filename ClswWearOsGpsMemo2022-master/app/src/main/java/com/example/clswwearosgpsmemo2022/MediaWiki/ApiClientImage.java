@@ -1,21 +1,18 @@
-package com.example.clswwearosgpsmemo2022;
+package com.example.clswwearosgpsmemo2022.MediaWiki;
 
 import android.util.Log;
 
+import com.example.clswwearosgpsmemo2022.WikiLovesMonument.ApiClientMonuments;
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 
-public class ApiClient {
-    private static final String LOG_TAG = ApiClient.class.getSimpleName();
-
-    //public static String TMDBAPI_BASE_URL = "https://api.themoviedb.org/3/";
-    //public static String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w45";
+public class ApiClientImage {
+    private static final String LOG_TAG = ApiClientMonuments.class.getSimpleName();
 
     public static String MONUMENT_API_BASE_URL = "https://heritage.toolforge.org/api/";
-    //public static String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w45";
 
     private static Retrofit retrofit = null;
 
