@@ -9,29 +9,30 @@
     android:background="@drawable/rounded_corner_frame"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/monument_image"/>
+
     <TextView
         android:id="@+id/monument_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/monument_image"
+        android:layout_marginLeft="5dp"
         android:textColor="@android:color/holo_orange_dark"
         tools:text="Monument Name" />
 
     <TextView
-        android:id="@+id/latitude_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/monument_name"
-        android:layout_alignParentStart="true"
-        android:textColor="@android:color/holo_blue_light"
-        tools:text="Latitude" />
-
-    <TextView
-        android:id="@+id/longitude_tv"
+        android:id="@+id/monument_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/monument_name"
         android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/monument_image"
+        android:layout_marginLeft="5dp"
         android:textColor="@android:color/holo_blue_light"
-        tools:text="Longitude" />
+        tools:text="monument distance" />
 
 </RelativeLayout>
