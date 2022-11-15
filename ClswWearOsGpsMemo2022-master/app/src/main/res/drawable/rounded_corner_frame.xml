@@ -9,7 +9,7 @@
 
     <!-- The corner radius, reduce it to make it more square -->
     <corners android:radius="30dp"/>
-
+    <solid android:color="#000" />
     <!-- Add your desired padding -->
     <padding
         android:left="10dp"
