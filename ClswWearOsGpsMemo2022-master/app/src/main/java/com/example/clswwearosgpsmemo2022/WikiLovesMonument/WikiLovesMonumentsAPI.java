@@ -4,7 +4,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface WikiLovesMonumentsAPI {
-    @GET("api.php?action=search&radius=3000&props=country|id|name|municipality|lat|lon|image")
+    @GET("api.php?action=search&radius=3000&props=country|id|name|municipality|lat|lon|image&limit=100000")
     Call<Monuments> getMonuments(
             @retrofit2.http.Query("coord") String coord
     );
