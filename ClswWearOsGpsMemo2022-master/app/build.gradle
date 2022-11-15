@@ -59,4 +59,7 @@ dependencies {
     implementation 'com.tickaroo.tikxml:retrofit-converter:0.8.13'
 
     annotationProcessor 'com.tickaroo.tikxml:processor:0.8.13'
+
+    // Circle Image View
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

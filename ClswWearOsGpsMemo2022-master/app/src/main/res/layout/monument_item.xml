@@ -9,7 +9,7 @@
     android:background="@drawable/rounded_corner_frame"
     android:orientation="vertical">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/monument_image"/>
