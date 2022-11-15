@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -57,6 +58,12 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
     // Location
     private FusedLocationProviderClient fusedLocationClient;
 
+    // Vibration
+    private Vibrator vibrator;
+    private long[] vibrationPattern = {0, 500, 50, 300};
+    //-1 - don't repeat
+    private final int indexInPatternToRepeat = -1;
+
     // Warning this is not a method, but a member data declaration
     private final LocationCallback locationCallback = new LocationCallback() {
         @Override
@@ -78,6 +85,7 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         Log.d(LOG_TAG, "onCreate()");
 
         // Init view binding
@@ -113,7 +121,7 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
 
             /* REQUETE POUR AVOIR LA LISTE DES MONUMENTS */
             // -> adapter = new MonumentsDisplayAdapter(monumentsList);
-            updateNearbyMonuments(makeLoc(0.0d, 0.0));
+            //updateNearbyMonuments(makeLoc(43.700000,7.250000));
             monumentsListAdapter = new MonumentsDisplayAdapter(monumentsList);
             binding.monumentsWrv.setAdapter(monumentsListAdapter);
 
@@ -144,15 +152,28 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
 
     private void updateNearbyMonuments(Location location){
         if (tmdbApi != null) {
-            Call<Monuments> call = tmdbApi.getMonuments();
+            String coord = location.getLatitude() + "," + location.getLongitude();
+            Call<Monuments> call = tmdbApi.getMonuments(coord);
             call.enqueue(new Callback<Monuments>() {
                 @Override
                 public void onResponse(@NonNull Call<Monuments> call, @NonNull Response<Monuments> response) {
-                    monumentsList.clear();
+                    //monumentsList.clear();
                     if (response.code() == 200) {
                         Monuments monumentResponse = response.body();
                         if (monumentResponse != null && monumentResponse.getMonument() != null) {
-                            monumentsList.addAll(monumentResponse.getMonument());
+                            List<Monument> monuments = monumentResponse.getMonument();
+                            boolean hasVibrated = false;
+                            for (Monument m : monuments) {
+                                if (monumentsList.stream().noneMatch(m::equals)){
+                                    if(!hasVibrated) {
+                                        vibrator.vibrate(vibrationPattern, indexInPatternToRepeat);
+                                        hasVibrated = true;
+                                    }
+                                    monumentsList.add(0, m);
+
+                                }
+                            }
+                            //monumentsList.addAll(monumentResponse.getMonument());
                             Log.d(LOG_TAG, "Number of popular person found=" + monumentsList.size());
                         }
                     } else {
