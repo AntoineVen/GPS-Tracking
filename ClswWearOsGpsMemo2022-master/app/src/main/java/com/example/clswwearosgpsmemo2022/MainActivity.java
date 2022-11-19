@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -66,7 +67,7 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
 
     // Vibration
     private Vibrator vibrator;
-    private long[] vibrationPattern = {0, 500, 50, 300};
+    private long[] vibrationPattern = {0, 150, 50, 50};
     //-1 - don't repeat
     private final int indexInPatternToRepeat = -1;
 
@@ -183,7 +184,7 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
                             List<Monument> monuments = monumentResponse.getMonument();
                             boolean hasVibrated = false;
                             for (Monument m : monuments) {
-                                if (monumentsList.stream().noneMatch(m::equals)){
+                                if (monumentsList.stream().noneMatch(x -> Objects.equals(x.id, m.id))){
                                     if(!hasVibrated) {
                                         vibrator.vibrate(vibrationPattern, indexInPatternToRepeat);
                                         hasVibrated = true;
