@@ -4,10 +4,11 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-public class Activity2_monument_picture extends AppCompatActivity {
+public class Activity2_monument_picture extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
