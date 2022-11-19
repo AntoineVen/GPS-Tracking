@@ -58,7 +58,7 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
         holder.binding.monumentImage.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 Toast.makeText(holder.binding.monumentImage.getContext(), "Item Clicked", Toast.LENGTH_LONG).show();
-                Intent myIntent = new Intent(MainActivity.this, Activity2_monument_picture.class);
+                Intent myIntent = new Intent(holder.binding.monumentImage.getContext(), Activity2_monument_picture.class);
                 //myIntent.putExtra("id", item.id); //Optional parameters
                 holder.binding.monumentImage.getContext().startActivity(myIntent);
             }

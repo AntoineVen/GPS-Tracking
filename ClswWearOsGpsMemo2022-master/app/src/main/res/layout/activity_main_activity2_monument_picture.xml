@@ -6,10 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".Activity2_monument_picture">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <!--de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/monument_image"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" /-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="MON IMAGE ICI">
 
+    </TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>
