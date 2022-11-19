@@ -181,7 +181,7 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
                                 }
                             }
                             //monumentsList.addAll(monumentResponse.getMonument());
-                            Log.d(LOG_TAG, "Number of popular person found=" + monumentsList.size());
+                            Log.d(LOG_TAG, "Number of monuments found = " + monumentsList.size());
                         }
                     } else {
                         Log.e(LOG_TAG, "HTTP error " + response.code());
@@ -196,7 +196,7 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
 
                 @Override
                 public void onFailure(@NonNull Call<Monuments> call, @NonNull Throwable t) {
-                    Log.e(LOG_TAG, "Call to 'getPersonPopular' failed");
+                    Log.e(LOG_TAG, "Call to 'updateNearbyMonument' failed");
                     Log.e(LOG_TAG, t.toString());
 
                 }
