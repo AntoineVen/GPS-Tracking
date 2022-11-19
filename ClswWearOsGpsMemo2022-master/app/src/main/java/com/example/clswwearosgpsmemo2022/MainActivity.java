@@ -88,10 +88,6 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
             }
         }
     };
-   /* public void openActivityMonumentPicture(){
-        Intent intent = new Intent(this, Activity2_monument_picture.class);
-        startActivity(intent);
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,15 +98,6 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
         // Init view binding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        //change view
-        /*button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //openActivityMonumentPicture();
-            }
-        });*/
 
         /*
          * Attach an ambient mode controller, which will be used by

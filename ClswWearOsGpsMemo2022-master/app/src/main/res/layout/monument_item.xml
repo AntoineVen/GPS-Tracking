@@ -2,53 +2,85 @@
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-    android:layout_marginTop="15dp"
-    android:layout_marginBottom="15dp">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:context='.MainActivity'>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/monument_image"
-        android:layout_centerInParent="true"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/monument_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/back"
+                />
 
-    <TextView
-        android:id="@+id/monument_name"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="-20dp"
-        android:textAlignment="center"
-        android:textSize="7dp"
-        android:textColor="@android:color/holo_orange_dark"
-        android:layout_alignBottom="@id/monument_image"
-        tools:text="Monument Name" />
+            <TextView
+                android:id="@+id/monument_name"
+                android:layout_width="93dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/monument_distance"
+                android:layout_alignEnd="@+id/monument_distance"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:fontFamily="monospace"
+                android:textAlignment="textStart"
+                android:textColor="@android:color/white"
+                android:textSize="10dp"
+                android:textStyle="bold"
+                tools:text="Name" />
 
-    <TextView
-        android:id="@+id/monument_distance"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-15dp"
-        android:layout_alignTop="@id/monument_image"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:textSize="10dp"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_blue_light"
-        tools:text="monument distance" />
+            <ImageView
+                android:id="@+id/eye_to_see"
+                android:layout_width="56dp"
+                android:layout_height="53dp"
+                android:layout_above="@+id/monument_name"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="-23dp"
+                android:layout_toStartOf="@+id/monument_distance"
+                android:src="@drawable/ic_baseline_remove_red_eye_24" />
+
+            <TextView
+                android:id="@+id/monument_distance"
+                android:layout_width="93dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/monument_image"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="-136dp"
+                android:layout_marginEnd="29dp"
+                android:background="@drawable/back"
+                android:fontFamily="@font/baloo_thambi"
+                android:textAlignment="center"
+                android:textColor="@color/violet"
+                android:textSize="20dp"
+                tools:text="distance" />
+
+            <Button
+                android:id="@+id/button_go"
+                android:layout_width="wrap_content"
+                android:layout_height="23dp"
+                android:layout_below="@+id/monument_name"
+                android:layout_alignEnd="@+id/monument_distance"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="19dp"
+                android:background="@drawable/border"
+                android:textStyle="bold"
+                android:text="Y aller"
+                android:textAlignment="center"
+                android:textColor="@color/violet"
+                android:textSize="10dp" />
 
 
         </RelativeLayout>

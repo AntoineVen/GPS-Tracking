@@ -1,11 +1,15 @@
 package com.example.clswwearosgpsmemo2022;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BlurMaskFilter;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.wear.widget.WearableRecyclerView;
@@ -13,6 +17,7 @@ import androidx.wear.widget.WearableRecyclerView;
 import com.example.clswwearosgpsmemo2022.WikiLovesMonument.Monument;
 import com.example.clswwearosgpsmemo2022.databinding.MonumentItemBinding;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.List;
 
@@ -43,26 +48,28 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
             if(name.length()>80) name = name.substring(0, 80);
             holder.binding.monumentName.setText(name);
         }
+
         Double dist = curItem.getDist();
         if (dist != null) holder.binding.monumentDistance.setText(String.format("%.0f", dist) + "m");
 
         Picasso.get()
                 .load(curItem.getImageURL())
+                .transform(new BlurTransformation(holder.binding.monumentImage.getContext(),8) ) // bluring the image
                 .fit()
                 .centerCrop()
                 .placeholder(android.R.drawable.sym_def_app_icon)
                 .error(android.R.drawable.ic_menu_help)
                 .into(holder.binding.monumentImage);
 
-        //change view
-        holder.binding.monumentImage.setOnClickListener(new View.OnClickListener() {
+        //change activity by clicking on the image
+        holder.binding.eyeToSee.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                Toast.makeText(holder.binding.monumentImage.getContext(), "Item Clicked", Toast.LENGTH_LONG).show();
-                Intent myIntent = new Intent(holder.binding.monumentImage.getContext(), Activity2_monument_picture.class);
-                //myIntent.putExtra("id", item.id); //Optional parameters
-                holder.binding.monumentImage.getContext().startActivity(myIntent);
+                Toast.makeText(holder.binding.eyeToSee.getContext(), "Item Clicked", Toast.LENGTH_LONG).show();
+                Intent myIntent = new Intent(holder.binding.eyeToSee.getContext(), Activity2_monument_picture.class);
+                holder.binding.eyeToSee.getContext().startActivity(myIntent);
             }
         });
+
     }
 
     @Override
