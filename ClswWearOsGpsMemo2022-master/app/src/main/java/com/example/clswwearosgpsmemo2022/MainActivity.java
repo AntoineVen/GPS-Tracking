@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,6 +57,9 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
 
     private final Context mContext = this;
     private ActivityMainBinding binding;
+
+    //change view
+    private Button button;
 
     // Location
     private FusedLocationProviderClient fusedLocationClient;
@@ -81,6 +87,10 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
             }
         }
     };
+   /* public void openActivityMonumentPicture(){
+        Intent intent = new Intent(this, Activity2_monument_picture.class);
+        startActivity(intent);
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +101,15 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
         // Init view binding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        //change view
+        /*button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //openActivityMonumentPicture();
+            }
+        });*/
 
         /*
          * Attach an ambient mode controller, which will be used by

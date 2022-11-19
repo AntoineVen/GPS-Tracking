@@ -49,6 +49,8 @@
         android:textAlignment="center"
         android:textColor="@android:color/holo_blue_light"
         tools:text="monument distance" />
+
+
         </RelativeLayout>
     </LinearLayout>
 
