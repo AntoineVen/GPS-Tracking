@@ -1,7 +1,12 @@
 package com.example.clswwearosgpsmemo2022;
+import static android.content.Intent.EXTRA_TEXT;
+
+import static androidx.wear.activity.ConfirmationActivity.EXTRA_MESSAGE;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BlurMaskFilter;
+import android.net.Uri;
 import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +71,9 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
             @Override public void onClick(View v) {
                 Toast.makeText(holder.binding.eyeToSee.getContext(), "Item Clicked", Toast.LENGTH_LONG).show();
                 Intent myIntent = new Intent(holder.binding.eyeToSee.getContext(), Activity2_monument_picture.class);
+                myIntent.putExtra(EXTRA_MESSAGE, curItem.getImageURL());
                 holder.binding.eyeToSee.getContext().startActivity(myIntent);
+
             }
         });
 

@@ -51,6 +51,7 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
     private static final int REQUEST_COARSE_AND_FINE_LOCATION_RESULT_CODE = 101;
     public static final long LOCATION_UPDATE_INTERVAL = 60000; // duration in milliseconds
     private static final int MAX_LOCATION_RECORDED = 10;
+    public static String pictureURL;
 
     public WikiLovesMonumentsAPI tmdbApi = null;
     List<Monument> monumentsList = new ArrayList<>();
@@ -59,8 +60,6 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
     private final Context mContext = this;
     private ActivityMainBinding binding;
 
-    //change view
-    private Button button;
 
     // Location
     private FusedLocationProviderClient fusedLocationClient;
@@ -177,7 +176,6 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
                                         hasVibrated = true;
                                     }
                                     monumentsList.add(0, m);
-
                                 }
                             }
                             //monumentsList.addAll(monumentResponse.getMonument());

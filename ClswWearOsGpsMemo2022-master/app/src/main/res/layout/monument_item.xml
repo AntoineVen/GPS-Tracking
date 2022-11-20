@@ -27,13 +27,13 @@
 
             <TextView
                 android:id="@+id/monument_name"
-                android:layout_width="93dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/monument_distance"
                 android:layout_alignEnd="@+id/monument_distance"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="0dp"
+                android:layout_marginEnd="-6dp"
                 android:fontFamily="monospace"
                 android:textAlignment="textStart"
                 android:textColor="@android:color/white"
@@ -73,14 +73,14 @@
                 android:layout_height="23dp"
                 android:layout_below="@+id/monument_name"
                 android:layout_alignEnd="@+id/monument_distance"
-                android:layout_marginTop="17dp"
-                android:layout_marginEnd="19dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="18dp"
                 android:background="@drawable/border"
-                android:textStyle="bold"
                 android:text="Y aller"
                 android:textAlignment="center"
                 android:textColor="@color/violet"
-                android:textSize="10dp" />
+                android:textSize="10dp"
+                android:textStyle="bold" />
 
 
         </RelativeLayout>
