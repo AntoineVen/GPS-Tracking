@@ -40,29 +40,28 @@ public class Activity2_monument_picture extends Activity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: get in activity 2");
         setContentView(R.layout.activity_main_activity2_monument_picture);
-
         // get intent from HomeActivity
+        binding = ActivityMainActivity2MonumentPictureBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         Intent intent = getIntent();
 
         // get extra message
-        String url = intent.getStringExtra(ConfirmationActivity.EXTRA_MESSAGE);
+        String url = intent.getStringExtra(EXTRA_MESSAGE);
 
         //render in textview
-        ImageView imageView = (ImageView) findViewById(R.id.picture);
-        imageView.setImageURI(Uri.parse(url));
+        //ImageView imageView = (ImageView) findViewById(R.id.picture);
+        //imageView.setImageURI(Uri.parse(url));
 
         Bundle extras = getIntent().getExtras();
 
-        //byte[] byteArray = extras.getByteArray("picture");
 
-
-        /*Picasso.get()
+        Picasso.get()
                 .load(url)
                 .fit()
                 .centerCrop()
                 .placeholder(android.R.drawable.sym_def_app_icon)
                 .error(android.R.drawable.ic_menu_help)
-                .into(binding.monuPicture);*/
+                .into(binding.picture);
     }
 }
