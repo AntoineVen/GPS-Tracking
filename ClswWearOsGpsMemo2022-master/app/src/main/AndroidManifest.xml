@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.DeviceDefault">
         <activity
-            android:name=".Activity2_monument_picture"
+            android:name=".Monument_picture_activity"
             android:exported="false"
             android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
             <meta-data

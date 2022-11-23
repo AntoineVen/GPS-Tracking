@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity2_monument_picture"
+    tools:context=".Monument_picture_activity"
     android:id="@+id/monument_picture">
 
     <!--de.hdodenhof.circleimageview.CircleImageView

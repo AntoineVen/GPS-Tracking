@@ -1,5 +1,7 @@
 package com.example.clswwearosgpsmemo2022;
 
+import static androidx.wear.activity.ConfirmationActivity.EXTRA_MESSAGE;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -110,6 +112,11 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
         ambientController.setAutoResumeEnabled(true);
 
         monumentsList.add(new Monument());
+
+        if(monumentsList.isEmpty()){
+            Intent myIntent = new Intent(this.mContext, NoMonumentActivity.class);
+            mContext.startActivity(myIntent);
+        }
 
         if(ApiClientMonuments.get() != null){
             tmdbApi = ApiClientMonuments.get().create(WikiLovesMonumentsAPI.class);
