@@ -37,6 +37,8 @@ import com.google.android.gms.location.LocationServices;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -174,7 +176,10 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
                     if (response.code() == 200) {
                         Monuments monumentResponse = response.body();
                         if (monumentResponse != null && monumentResponse.getMonument() != null) {
+                            //stock la list des monuments récupérés lors de la requête
                             List<Monument> monuments = monumentResponse.getMonument();
+                            //inverse la liste afin d'obtenir un ordre du RecyclerView du plus proche au plus éloigné
+                            Collections.reverse(monuments);
                             boolean hasVibrated = false;
                             for (Monument m : monuments) {
                                 if (monumentsList.stream().noneMatch(x -> Objects.equals(x.id, m.id))){
