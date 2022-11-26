@@ -38,7 +38,6 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
     public MonumentsDisplayAdapter.MonumentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         MonumentItemBinding binding = MonumentItemBinding.inflate(layoutInflater, parent, false);
-
         return new MonumentViewHolder(binding);
     }
 
@@ -59,7 +58,6 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
 
         Picasso.get()
                 .load(curItem.getImageURL())
-                .transform(new BlurTransformation(holder.binding.monumentImage.getContext(),8) ) // bluring the image
                 .fit()
                 .centerCrop()
                 .placeholder(android.R.drawable.sym_def_app_icon)
@@ -67,13 +65,12 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
                 .into(holder.binding.monumentImage);
 
         //change activity by clicking on the image
-        holder.binding.eyeToSee.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                Toast.makeText(holder.binding.eyeToSee.getContext(), "Item Clicked", Toast.LENGTH_LONG).show();
-                Intent myIntent = new Intent(holder.binding.eyeToSee.getContext(), Monument_picture_activity.class);
+                Toast.makeText(holder.itemView.getContext(), "Item Clicked", Toast.LENGTH_LONG).show();
+                Intent myIntent = new Intent(holder.itemView.getContext(), Monument_picture_activity.class);
                 myIntent.putExtra(EXTRA_MESSAGE, curItem.getImageURL());
-                holder.binding.eyeToSee.getContext().startActivity(myIntent);
-
+                holder.itemView.getContext().startActivity(myIntent);
             }
         });
 
