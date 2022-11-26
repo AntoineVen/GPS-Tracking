@@ -1,5 +1,7 @@
 package com.example.clswwearosgpsmemo2022.WikiLovesMonument;
 
+import android.util.Log;
+
 import com.tickaroo.tikxml.annotation.Attribute;
 import com.tickaroo.tikxml.annotation.Xml;
 
@@ -24,6 +26,15 @@ public class Monument {
 
     public String getName() {
         return name;
+    }
+    public String getParsedName(){
+        if(name == null) return new String("No name found");
+        String parsed = name.replaceAll("[\\[\\]]", "");
+        parsed = parsed.split("[\\u007C\\(]")[0];
+        parsed = parsed.split("&lt;br")[0];
+        if(parsed.length()>80) name = name.substring(0, 80);
+        Log.d("name", parsed);
+        return parsed;
     }
     public void setName(String name) {
         this.name = name;

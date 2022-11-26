@@ -44,12 +44,8 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
     @Override
     public void onBindViewHolder(@NonNull MonumentsDisplayAdapter.MonumentViewHolder holder, int position) {
         Monument curItem = monuments.get(position);
-        String name = curItem.getName();
+        String name = curItem.getParsedName();
         if (name != null) {
-            name=name.replace("[", "");
-            name=name.replace("]", "");
-            name = name.split("\\u007C")[0];
-            if(name.length()>80) name = name.substring(0, 80);
             holder.binding.monumentName.setText(name);
         }
 
