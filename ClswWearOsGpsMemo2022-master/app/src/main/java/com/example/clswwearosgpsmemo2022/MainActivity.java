@@ -175,25 +175,19 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
             call.enqueue(new Callback<Monuments>() {
                 @Override
                 public void onResponse(@NonNull Call<Monuments> call, @NonNull Response<Monuments> response) {
-                    //monumentsList.clear();
                     if (response.code() == 200) {
                         Monuments monumentResponse = response.body();
                         if (monumentResponse != null && monumentResponse.getMonument() != null) {
                             //stock la list des monuments récupérés lors de la requête
                             List<Monument> monuments = monumentResponse.getMonument();
-                            //inverse la liste afin d'obtenir un ordre du RecyclerView du plus proche au plus éloigné
-                            Collections.reverse(monuments);
-                            boolean hasVibrated = false;
                             for (Monument m : monuments) {
                                 if (monumentsList.stream().noneMatch(x -> Objects.equals(x.id, m.id))){
-                                    if(!hasVibrated) {
-                                        vibrator.vibrate(vibrationPattern, indexInPatternToRepeat);
-                                        hasVibrated = true;
-                                    }
-                                    monumentsList.add(0, m);
+                                    vibrator.vibrate(vibrationPattern, indexInPatternToRepeat);
+                                    break;
                                 }
                             }
-                            //monumentsList.addAll(monumentResponse.getMonument());
+                            monumentsList.clear();
+                            monumentsList.addAll(monumentResponse.getMonument());
                             Log.d(LOG_TAG, "Number of monuments found = " + monumentsList.size());
                         }
                     } else {
