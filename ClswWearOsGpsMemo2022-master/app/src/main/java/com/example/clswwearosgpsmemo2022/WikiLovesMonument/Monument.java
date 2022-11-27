@@ -2,6 +2,7 @@ package com.example.clswwearosgpsmemo2022.WikiLovesMonument;
 
 import android.util.Log;
 
+import com.example.clswwearosgpsmemo2022.databinding.MonumentItemBinding;
 import com.tickaroo.tikxml.annotation.Attribute;
 import com.tickaroo.tikxml.annotation.Xml;
 
@@ -25,6 +26,7 @@ public class Monument {
     public String image;
 
     public Monument(){}
+    public Monument(String name){this.name = name;}
 
     public String getName() {
         return name;

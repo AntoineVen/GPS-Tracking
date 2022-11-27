@@ -109,7 +109,7 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
          */
         ambientController.setAutoResumeEnabled(true);
 
-        monumentsList.add(new Monument());
+        monumentsList.add(new Monument("Searching Monuments..."));
 
         if(monumentsList.isEmpty()){
             Intent myIntent = new Intent(this.mContext, NoMonumentActivity.class);

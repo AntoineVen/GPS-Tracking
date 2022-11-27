@@ -60,8 +60,8 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
                 .load(curItem.getImageURL())
                 .fit()
                 .centerCrop()
-                .placeholder(android.R.drawable.sym_def_app_icon)
-                .error(android.R.drawable.ic_menu_help)
+                .placeholder(R.drawable.rounded_corner_frame)
+                .error(R.drawable.rounded_corner_frame)
                 .into(holder.binding.monumentImage);
 
         //change activity by clicking on the image
