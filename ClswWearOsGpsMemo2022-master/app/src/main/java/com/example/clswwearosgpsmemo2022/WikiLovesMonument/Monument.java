@@ -24,6 +24,8 @@ public class Monument {
     @Attribute
     public String image;
 
+    public Monument(){}
+
     public String getName() {
         return name;
     }

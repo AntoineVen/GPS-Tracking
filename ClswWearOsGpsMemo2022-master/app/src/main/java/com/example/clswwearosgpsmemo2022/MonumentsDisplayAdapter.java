@@ -21,13 +21,16 @@ import androidx.wear.widget.WearableRecyclerView;
 
 import com.example.clswwearosgpsmemo2022.WikiLovesMonument.Monument;
 import com.example.clswwearosgpsmemo2022.databinding.MonumentItemBinding;
+import com.example.clswwearosgpsmemo2022.firebase.MonumentDAO;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<MonumentsDisplayAdapter.MonumentViewHolder> {
     private final List<Monument> monuments;
+    private MonumentDAO dao = new MonumentDAO();
 
     public MonumentsDisplayAdapter(List<Monument> results) {
         this.monuments = results;
@@ -63,6 +66,9 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
         //change activity by clicking on the image
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
+                //add the clicked monument to the database using its id as the key, and adding the date of the click
+                dao.add(curItem.id, curItem);
+                dao.update(curItem.id, new HashMap<String, Object>(){{put("time", new java.util.Date().toString());}});
                 Toast.makeText(holder.itemView.getContext(), "Item Clicked", Toast.LENGTH_LONG).show();
                 Intent myIntent = new Intent(holder.itemView.getContext(), Monument_picture_activity.class);
                 myIntent.putExtra(EXTRA_MESSAGE, curItem.getImageURL());

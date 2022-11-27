@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "251841632639",
+    "firebase_url": "https://monumentwearable-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "monumentwearable",
+    "storage_bucket": "monumentwearable.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251841632639:android:792b0f0868c36e814ca24a",
+        "android_client_info": {
+          "package_name": "com.example.clswwearosgpsmemo2022"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "251841632639-9d3iga58fk5ae0o314uritg9026a9p6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6ZbgEak_z9bSi5opTSfmv-Fs7_XDYqKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "251841632639-9d3iga58fk5ae0o314uritg9026a9p6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
