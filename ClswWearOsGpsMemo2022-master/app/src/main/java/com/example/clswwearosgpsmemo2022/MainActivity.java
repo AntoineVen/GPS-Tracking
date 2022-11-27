@@ -111,11 +111,6 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
 
         monumentsList.add(new Monument("Searching Monuments..."));
 
-        if(monumentsList.isEmpty()){
-            Intent myIntent = new Intent(this.mContext, NoMonumentActivity.class);
-            mContext.startActivity(myIntent);
-        }
-
         if(ApiClientMonuments.get() != null){
             tmdbApi = ApiClientMonuments.get().create(WikiLovesMonumentsAPI.class);
         } else finish();
