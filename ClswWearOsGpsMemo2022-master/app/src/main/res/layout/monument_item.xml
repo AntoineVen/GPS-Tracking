@@ -66,6 +66,15 @@
                 android:textSize="15sp"
                 tools:text="distance" />
 
+            <ImageView
+                android:id="@+id/visitedIcon"
+                android:src="@drawable/ic_baseline_check_circle_outline_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/monument_distance"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible" />
+
 
         </RelativeLayout>
     </LinearLayout>

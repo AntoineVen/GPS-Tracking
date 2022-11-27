@@ -35,7 +35,6 @@ public class Monument {
         parsed = parsed.split("[\\u007C\\(]")[0];
         parsed = parsed.split("&lt;br")[0];
         if(parsed.length()>80) name = name.substring(0, 80);
-        Log.d("name", parsed);
         return parsed;
     }
     public void setName(String name) {

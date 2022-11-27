@@ -70,12 +70,15 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
                 //add the clicked monument to the database using its id as the key, and adding the date of the click
                 dao.add(curItem.id, curItem);
                 dao.update(curItem.id, new HashMap<String, Object>(){{put("time", new java.util.Date().toString());}});
+                dao.isInDB(curItem.id, holder.binding);
                 Toast.makeText(holder.itemView.getContext(), "Item Clicked", Toast.LENGTH_LONG).show();
                 Intent myIntent = new Intent(holder.itemView.getContext(), Monument_picture_activity.class);
                 myIntent.putExtra(EXTRA_MESSAGE, curItem.getImageURL());
                 holder.itemView.getContext().startActivity(myIntent);
             }
         });
+
+        dao.isInDB(curItem.id, holder.binding);
 
     }
 
