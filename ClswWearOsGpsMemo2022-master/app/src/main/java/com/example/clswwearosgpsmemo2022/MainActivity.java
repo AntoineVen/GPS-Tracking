@@ -6,11 +6,13 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +44,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -80,13 +83,6 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
         public void onLocationResult(@NonNull LocationResult locationResult) {
             Log.d(LOG_TAG, "onLocationResult(" + locationResult.getLastLocation() + ")");
             if (locationResult.getLocations().size() > 0) {
-                /*for (Location location : locationResult.getLocations()) {
-                    int length = locations.size();
-                    if (length >= MAX_LOCATION_RECORDED) {
-                        locations.remove(length - 1); // remove last element
-                    }
-                    locations.add(0, location); // insert new element
-                }*/
                 updateNearbyMonuments(locationResult.getLastLocation());
             }
         }
@@ -134,10 +130,17 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
             binding.monumentsWrv.setEdgeItemsCenteringEnabled(true);
             binding.monumentsWrv.setLayoutManager(new WearableLinearLayoutManager(this));
 
-            /* REQUETE POUR AVOIR LA LISTE DES MONUMENTS */
-            // -> adapter = new MonumentsDisplayAdapter(monumentsList);
-            //updateNearbyMonuments(makeLoc(43.700000,7.250000));
-            monumentsListAdapter = new MonumentsDisplayAdapter(monumentsList);
+            //If there is no userID, we create one in the local storage. userID will then be used to stock and access our online data in Firebase.
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            String userID = preferences.getString("userID", "NOT INSTANCIATED");
+            if(userID == "NOT INSTANCIATED"){
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("userID", UUID.randomUUID().toString());
+                editor.commit();
+                userID = preferences.getString("userID", "NOT INSTANCIATED");
+            }
+            Log.d("USERID", userID);
+            monumentsListAdapter = new MonumentsDisplayAdapter(monumentsList, userID);
             binding.monumentsWrv.setAdapter(monumentsListAdapter);
 
             // Location init

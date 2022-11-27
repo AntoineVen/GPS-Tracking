@@ -9,17 +9,21 @@ import java.util.HashMap;
 
 public class MonumentDAO {
     private DatabaseReference databaseReference;
-    public MonumentDAO(){
+    public String userID;
+
+    public MonumentDAO(String userID){
         FirebaseDatabase db = FirebaseDatabase.getInstance("https://monumentwearable-default-rtdb.europe-west1.firebasedatabase.app");
         databaseReference = db.getReference(Monument.class.getSimpleName());
+        this.userID = userID;
     }
+
     public Task<Void> add(String key, Monument monument){
-        return databaseReference.child(key).setValue(monument);
+        return databaseReference.child(userID).child(key).setValue(monument);
     }
     public Task<Void> update(String key, HashMap<String, Object> hashMap){
-        return databaseReference.child(key).updateChildren(hashMap);
+        return databaseReference.child(userID).child(key).updateChildren(hashMap);
     }
     public Task<Void> remove(String key){
-        return databaseReference.child(key).removeValue();
+        return databaseReference.child(userID).child(key).removeValue();
     }
 }

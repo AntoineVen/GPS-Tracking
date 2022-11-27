@@ -30,9 +30,10 @@ import java.util.List;
 
 public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<MonumentsDisplayAdapter.MonumentViewHolder> {
     private final List<Monument> monuments;
-    private MonumentDAO dao = new MonumentDAO();
+    private MonumentDAO dao;
 
-    public MonumentsDisplayAdapter(List<Monument> results) {
+    public MonumentsDisplayAdapter(List<Monument> results, String userID) {
+        dao = new MonumentDAO(userID);
         this.monuments = results;
     }
 
@@ -95,46 +96,3 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
 
     }
 }
-/*
-    private static final String DMYHMS_DATE_FORMAT = "dd/MM/yyyy-HH':'mm':'ss";
-
-    // Data model
-    ArrayList<Location> locations;
-    Context context;
-
-    public MonumentsDisplayAdapter(ArrayList<Location> locations, Context context) {
-        this.locations = locations;
-        this.context = context;
-    }
-
-    @NonNull
-    @Override
-    public GpsLocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        ItemGpsLocationBinding binding = ItemGpsLocationBinding.inflate(layoutInflater, parent, false);
-        return new GpsLocationViewHolder(binding);
-
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull GpsLocationViewHolder holder, int position) {
-        Location curItem = locations.get(position);
-        Date date = new Date(curItem.getTime());
-        holder.binding.timeStampTv.setText(context.getString(R.string.timestamp_format, DateFormat.format(DMYHMS_DATE_FORMAT, date).toString()));
-        holder.binding.latitudeTv.setText(context.getString(R.string.latitude_format, curItem.getLatitude()));
-        holder.binding.longitudeTv.setText(context.getString(R.string.longitude_format, curItem.getLongitude()));
-    }
-
-    @Override
-    public int getItemCount() {
-        return locations.size();
-    }
-
-    public static class GpsLocationViewHolder extends WearableRecyclerView.ViewHolder {
-        ItemGpsLocationBinding binding;
-        public GpsLocationViewHolder(@NonNull ItemGpsLocationBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
-    }
-}*/
