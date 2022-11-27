@@ -43,15 +43,13 @@ public class MonumentDAO {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    //item.monumentName.setText("already visited");
                     item.visitedIcon.setVisibility(View.VISIBLE);
                 } else {
-                    //item.monumentName.setText("never visited");
+                    item.visitedIcon.setVisibility(View.INVISIBLE);
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Failed, how to handle?
             }
         });
     }
