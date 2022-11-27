@@ -56,9 +56,7 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String LOC_PROVIDER = "WATCH";
     private static final int REQUEST_COARSE_AND_FINE_LOCATION_RESULT_CODE = 101;
-    public static final long LOCATION_UPDATE_INTERVAL = 60000; // duration in milliseconds
-    private static final int MAX_LOCATION_RECORDED = 10;
-    public static String pictureURL;
+    public static final long LOCATION_UPDATE_INTERVAL = 60000; // duration in milliseconds between each monument list update
 
     public WikiLovesMonumentsAPI tmdbApi = null;
     List<Monument> monumentsList = new ArrayList<>();
@@ -109,6 +107,7 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
          */
         ambientController.setAutoResumeEnabled(true);
 
+        //Use the monument display to create a loading screen
         monumentsList.add(new Monument("Searching Monuments..."));
 
         if(ApiClientMonuments.get() != null){
@@ -118,10 +117,8 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
         // Ensure watch has an embedded physical GPS for the application to work
         if (hasGps()) {
             Log.d(LOG_TAG, "Found standalone GPS hardware");
-            // dummy init for test purpose only
-            //locations.add(makeLoc(0.0d, 0.0));
 
-            // Wearable recycler view init
+            // Wearable recycler setup
             binding.monumentsWrv.setEdgeItemsCenteringEnabled(true);
             binding.monumentsWrv.setLayoutManager(new WearableLinearLayoutManager(this));
 
@@ -131,10 +128,13 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
             if(userID == "NOT INSTANCIATED"){
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("userID", UUID.randomUUID().toString());
+                //We use commit over apply as we need the data to be settled before the next line
                 editor.commit();
                 userID = preferences.getString("userID", "NOT INSTANCIATED");
             }
             Log.d("USERID", userID);
+
+            //wearable recycler init
             monumentsListAdapter = new MonumentsDisplayAdapter(monumentsList, userID);
             binding.monumentsWrv.setAdapter(monumentsListAdapter);
 
@@ -163,6 +163,11 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
         }
     }
 
+    /*
+    Make a request to the WikiLovesMonument API that search for all monuments in a perimeter of 4km around our position,
+    store the request's result in a list of monuments, and update the recycler view with said list. Monuments are already
+    sorted by distance in the response.
+     */
     private void updateNearbyMonuments(Location location){
         if (tmdbApi != null) {
             String coord = location.getLatitude() + "," + location.getLongitude();

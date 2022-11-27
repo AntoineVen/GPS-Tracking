@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 public class MonumentDAO {
-    private DatabaseReference databaseReference;
+    private final DatabaseReference databaseReference;
     public String userID;
 
     public MonumentDAO(String userID){
@@ -36,6 +36,10 @@ public class MonumentDAO {
         return databaseReference.child(userID).child(key).removeValue();
     }
 
+    /*
+    check if the monument with ID key is already in Firebase under our userID. If so, make the
+    checkmark on the monument item visible
+     */
     public void isInDB(String key, MonumentItemBinding item){
         if(key==null) return;
         DatabaseReference rootRef = databaseReference.child(userID).child(key);
