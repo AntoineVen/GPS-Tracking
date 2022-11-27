@@ -3,11 +3,13 @@ import static android.content.Intent.EXTRA_TEXT;
 
 import static androidx.wear.activity.ConfirmationActivity.EXTRA_MESSAGE;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BlurMaskFilter;
 import android.net.Uri;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,10 +73,17 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
                 dao.add(curItem.id, curItem);
                 dao.update(curItem.id, new HashMap<String, Object>(){{put("time", new java.util.Date().toString());}});
                 dao.isInDB(curItem.id, holder.binding);
-                Toast.makeText(holder.itemView.getContext(), "Item Clicked", Toast.LENGTH_LONG).show();
-                Intent myIntent = new Intent(holder.itemView.getContext(), Monument_picture_activity.class);
-                myIntent.putExtra(EXTRA_MESSAGE, curItem.getImageURL());
-                holder.itemView.getContext().startActivity(myIntent);
+                //Toast.makeText(holder.itemView.getContext(), "Item Clicked", Toast.LENGTH_LONG).show();
+                //Intent myIntent = new Intent(holder.itemView.getContext(), Monument_picture_activity.class);
+                //myIntent.putExtra(EXTRA_MESSAGE, curItem.getImageURL());
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("google.navigation:q=" + curItem.lat + "," + curItem.lon + "&mode=b"));
+                intent.setPackage("com.google.android.apps.maps");
+                try {
+                    holder.itemView.getContext().startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(holder.itemView.getContext(), "Download Google Map to use navigation", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
