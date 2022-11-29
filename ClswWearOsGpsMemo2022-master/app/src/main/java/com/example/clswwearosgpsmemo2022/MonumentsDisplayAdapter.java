@@ -17,7 +17,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<MonumentsDisplayAdapter.MonumentViewHolder> {
     private final List<Monument> monuments;
@@ -67,6 +66,9 @@ public class MonumentsDisplayAdapter extends WearableRecyclerView.Adapter<Monume
          */
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
+
+                //RETURN WITHOUT DOING  ANYTHING IF IS PLACEHOLDER MONUMENT
+                if(curItem.lat == null || curItem.lon == null) return;
 
                 //add the clicked monument to the database using its id as the key, and adding the date of the click
                 dao.add(curItem.id, curItem);

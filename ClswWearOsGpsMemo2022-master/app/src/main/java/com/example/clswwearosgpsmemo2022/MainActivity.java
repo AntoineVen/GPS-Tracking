@@ -36,6 +36,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,7 +55,6 @@ import retrofit2.Response;
 // inherit from FragmentActivity for Ambient mode support
 public class MainActivity extends FragmentActivity implements AmbientModeSupport.AmbientCallbackProvider {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    private static final String LOC_PROVIDER = "WATCH";
     private static final int REQUEST_COARSE_AND_FINE_LOCATION_RESULT_CODE = 101;
     public static final long LOCATION_UPDATE_INTERVAL = 60000; // duration in milliseconds between each monument list update
 
@@ -189,10 +189,14 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
                             monumentsList.clear();
                             monumentsList.addAll(monumentResponse.getMonument());
                             Log.d(LOG_TAG, "Number of monuments found = " + monumentsList.size());
+                        } else {
+                            monumentsList.clear();
+                            monumentsList.add(new Monument("No Monument Found"));
                         }
                     } else {
                         Log.e(LOG_TAG, "HTTP error " + response.code());
                         monumentsList.clear();
+                        monumentsList.add(new Monument("Error requesting database"));
                         Toast toast = Toast.makeText(mContext, "error", Toast.LENGTH_LONG);
                         toast.show();
 
@@ -205,7 +209,9 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
                 public void onFailure(@NonNull Call<Monuments> call, @NonNull Throwable t) {
                     Log.e(LOG_TAG, "Call to 'updateNearbyMonument' failed");
                     Log.e(LOG_TAG, t.toString());
-
+                    monumentsList.clear();
+                    monumentsList.add(new Monument("No response from database, please check your internet connection"));
+                    monumentsListAdapter.notifyItemRangeChanged(0, monumentsList.size());
                 }
             });
 
@@ -221,7 +227,7 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
         // create location request
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setInterval(LOCATION_UPDATE_INTERVAL);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
 
         fusedLocationClient.requestLocationUpdates(
                 locationRequest,
@@ -269,15 +275,6 @@ public class MainActivity extends FragmentActivity implements AmbientModeSupport
         intent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, getString(R.string.no_gps_message));
         startActivity(intent);
         finish();
-    }
-
-    private Location makeLoc(double lat, double lon) {
-        Location location = new Location(LOC_PROVIDER);
-        Date now = new Date();
-        location.setLatitude(lat);
-        location.setLongitude(lon);
-        location.setTime(now.getTime());
-        return location;
     }
 
     @Override
