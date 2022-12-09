@@ -28,11 +28,13 @@ L’application n’est actuellement pas publiée sur le Play Store compte tenu 
 L’APK de l’application est disponible à la racine du dossier du dossier Github ci-présent.
 
 Pour déployer une application Android (APK) depuis votre ordinateur vers votre montre connectée Wear OS, suivez ces étapes :
-Assurez-vous que votre montre connectée est connectée à votre ordinateur via Bluetooth.
-Sur votre ordinateur, ouvrez l'outil de ligne de commande Android Debug Bridge (ADB). Vous pouvez trouver cet outil dans le dossier Android SDK de votre ordinateur.
-Dans l'outil ADB, exécutez la commande adb devices pour afficher une liste des périphériques connectés. Vous devriez voir votre montre connectée dans cette liste.
-Dans l'outil ADB, exécutez la commande adb install suivie du chemin vers le fichier APK que vous souhaitez installer sur votre montre connectée. Par exemple : adb install /chemin/vers/l'application.apk
-Attendre que le fichier APK soit transféré vers votre montre connectée et installé.
-Une fois l'installation terminée, vous devriez voir un message indiquant que l'application a été installée avec succès.
+
+1. Assurez-vous que votre montre connectée est connectée à votre ordinateur via Bluetooth.
+2. Sur votre ordinateur, ouvrez l'outil de ligne de commande Android Debug Bridge (ADB). Vous pouvez trouver cet outil dans le dossier Android SDK de votre ordinateur.
+3. Dans l'outil ADB, exécutez la commande adb devices pour afficher une liste des périphériques connectés. Vous devriez voir votre montre connectée dans cette liste.
+4. Dans l'outil ADB, exécutez la commande adb install suivie du chemin vers le fichier APK que vous souhaitez installer sur votre montre connectée. Par exemple : adb install /chemin/vers/l'application.apk
+5. Attendre que le fichier APK soit transféré vers votre montre connectée et installé.
+6. Une fois l'installation terminée, vous devriez voir un message indiquant que l'application a été installée avec succès.
+
 Sur votre montre connectée, accédez à la liste des applications installées et appuyez sur l'application que vous venez d'installer pour lancer l'application.
 Il se peut que vous ayez besoin d'activer le mode développeur sur votre montre connectée pour pouvoir installer des applications à l'aide de l'outil ADB. Consultez la documentation de votre montre connectée pour obtenir des instructions sur la façon de procéder.
